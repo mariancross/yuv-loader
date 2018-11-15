@@ -1,19 +1,13 @@
-cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
-add_executable(example example.cpp)
+cmake_minimum_required(VERSION 3.8)
+project(YUVLoader)
 
-# try the shared tensorflow library first
-find_package(TensorflowCC COMPONENTS Shared)
-if(TensorflowCC_Shared_FOUND)
-  target_link_libraries(example TensorflowCC::Shared)
-# fallback to the static library
-else()
-  find_package(TensorflowCC REQUIRED COMPONENTS Static)
-  target_link_libraries(example TensorflowCC::Static)
-endif()
+set(CMAKE_CXX_STANDARD 11)
+find_package(OpenCV REQUIRED)
 
-# link cuda if it is available
-find_package(CUDA)
-if(CUDA_FOUND)
-  target_link_libraries(example ${CUDA_LIBRARIES})
-endif()
+set(SOURCE_FILES
+    src/main.cpp
+    src/io/YUV.h
+    src/io/YUV.cpp)
 
+add_executable(YUVLoader ${SOURCE_FILES})
+target_link_libraries(YUVLoader ${OpenCV_LIBS})
