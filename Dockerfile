@@ -1,4 +1,4 @@
-FROM floopcz/tensorflow_cc:archlinux-shared-cuda
+FROM floopcz/tensorflow_cc:archlinux-shared
 
 # switch the url to a good rating mirror when running this. Check https://www.archlinux.org/mirrors/status/
 RUN echo 'Server = http://mirrors.udenar.edu.co/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
@@ -15,4 +15,3 @@ RUN cd /opt/yuv-loader && \
     cd build && \
     cmake .. && \
     make
-    

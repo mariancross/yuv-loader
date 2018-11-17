@@ -17,21 +17,36 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <cstdlib>
+#ifndef MODEL_H
+#define MODEL_H
+
+#include <ctime>
+#include <iostream>
 #include <vector>
 
 #include <opencv2/core/core.hpp>
+#include <tensorflow/core/public/session.h>
+#include <tensorflow/core/protobuf/meta_graph.pb.h>
 
-#include "io/YUV.h"
-#include "tf/Model.h"
+typedef std::vector<std::pair<std::string, tensorflow::Tensor>> tensor_dict;
 
-int main(int argc, char* argv[])
+class Model
 {
-    YUV yuv;
-    yuv.read(argv[1], std::atoi(argv[2]), std::atoi(argv[3]), std::atoi(argv[4]));
+private:
+    tensorflow::Session* session;
+    tensorflow::MetaGraphDef graphDef;
+    std::vector<tensorflow::Tensor> outputs;
 
-    Model model;
-    model.apply(yuv.getY());
+protected:
 
-    return 0;
-}
+public:
+    Model();
+    ~Model();
+
+    void load();
+
+    void apply(const std::vector<cv::Mat>& video);
+};
+
+
+#endif
