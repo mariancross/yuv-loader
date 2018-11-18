@@ -1,7 +1,7 @@
 default : all
 
 run :
-	./YUVLoader /opt/code/resources/BasketballPass_416x240_50.yuv 416 240 50 > BasketballPass.out
+	./YUVLoader BasketballPass_416x240_50.yuv 416 240 50 > BasketballPass.out
 	./YUVLoader BQMall_832x480_60.yuv 832 480 50 > BQMall.out
 	./YUVLoader FourPeople_1280x720_60.yuv 1280 720 50 > FourPeople.out
 	./YUVLoader Johnny_1280x720_60.yuv 1280 720 50 > Johnny.out
