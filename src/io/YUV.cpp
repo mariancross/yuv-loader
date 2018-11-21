@@ -33,66 +33,66 @@ YUV::~YUV()
 
 void YUV::read(const char* filename, int width, int height, int nFrames)
 {
-    FILE *stream = fopen(filename, "rb");
-    int lumaSize = width * height;
-    int halfWidth = width / 2;
-    int halfHeight = height / 2;
-    int chromaSize = halfWidth * halfHeight;
+  FILE *stream = fopen(filename, "rb");
+  int lumaSize = width * height;
+  int halfWidth = width / 2;
+  int halfHeight = height / 2;
+  int chromaSize = halfWidth * halfHeight;
 
-    y = vector<Mat>(nFrames);
-    u = vector<Mat>(nFrames);
-    v = vector<Mat>(nFrames);
+  y = vector<Mat>(nFrames);
+  u = vector<Mat>(nFrames);
+  v = vector<Mat>(nFrames);
 
-    auto *yRaw = (unsigned char *) malloc(sizeof(unsigned char) * lumaSize);
-    auto *uRaw = (unsigned char *) malloc(sizeof(unsigned char) * chromaSize);
-    auto *vRaw = (unsigned char *) malloc(sizeof(unsigned char) * chromaSize);
+  auto *yRaw = (unsigned char *) malloc(sizeof(unsigned char) * lumaSize);
+  auto *uRaw = (unsigned char *) malloc(sizeof(unsigned char) * chromaSize);
+  auto *vRaw = (unsigned char *) malloc(sizeof(unsigned char) * chromaSize);
 
-    for (int i = 0; i < nFrames; i++)
-    {
-        fread(yRaw, sizeof(unsigned char), lumaSize, stream);
-        fread(uRaw, sizeof(unsigned char), chromaSize, stream);
-        fread(vRaw, sizeof(unsigned char), chromaSize, stream);
+  for (int i = 0; i < nFrames; i++)
+  {
+    fread(yRaw, sizeof(unsigned char), lumaSize, stream);
+    fread(uRaw, sizeof(unsigned char), chromaSize, stream);
+    fread(vRaw, sizeof(unsigned char), chromaSize, stream);
 
-        y[i] = Mat(height, width, CV_8UC1, yRaw).clone();
-        u[i] = Mat(halfHeight, halfWidth, CV_8UC1, uRaw).clone();
-        v[i] = Mat(halfHeight, halfWidth, CV_8UC1, vRaw).clone();
-    }
+    y[i] = Mat(height, width, CV_8UC1, yRaw).clone();
+    u[i] = Mat(halfHeight, halfWidth, CV_8UC1, uRaw).clone();
+    v[i] = Mat(halfHeight, halfWidth, CV_8UC1, vRaw).clone();
+  }
 
-    free(yRaw);
-    free(uRaw);
-    free(vRaw);
+  free(yRaw);
+  free(uRaw);
+  free(vRaw);
 
-    fclose(stream);
+  fclose(stream);
 }
 
 void YUV::write(const char* filename, const vector<Mat>& y, const vector<Mat>& u, const vector<Mat>& v)
 {
-    FILE* stream = fopen(filename, "wb");
-    auto nFrames = (int)y.size();
-    int lumaSize = y[0].cols * y[0].rows;
-    int chromaSize = u[0].cols * u[0].rows;
+  FILE* stream = fopen(filename, "wb");
+  auto nFrames = (int)y.size();
+  int lumaSize = y[0].cols * y[0].rows;
+  int chromaSize = u[0].cols * u[0].rows;
 
-    for (int i = 0; i < nFrames; i++)
-    {
-        fwrite(y[i].data, sizeof(unsigned char), lumaSize, stream);
-        fwrite(u[i].data, sizeof(unsigned char), chromaSize, stream);
-        fwrite(v[i].data, sizeof(unsigned char), chromaSize, stream);
-    }
+  for (int i = 0; i < nFrames; i++)
+  {
+    fwrite(y[i].data, sizeof(unsigned char), lumaSize, stream);
+    fwrite(u[i].data, sizeof(unsigned char), chromaSize, stream);
+    fwrite(v[i].data, sizeof(unsigned char), chromaSize, stream);
+  }
 
-    fclose(stream);
+  fclose(stream);
 }
 
 vector<Mat> YUV::getY()
 {
-    return y;
+  return y;
 }
 
 vector<Mat> YUV::getU()
 {
-    return u;
+  return u;
 }
 
 vector<Mat> YUV::getV()
 {
-    return v;
+  return v;
 }

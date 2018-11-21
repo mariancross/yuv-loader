@@ -27,11 +27,12 @@
 
 int main(int argc, char* argv[])
 {
-    YUV yuv;
-    yuv.read(argv[1], std::atoi(argv[2]), std::atoi(argv[3]), std::atoi(argv[4]));
+  YUV yuv;
+  yuv.read(argv[1], std::atoi(argv[2]), std::atoi(argv[3]), std::atoi(argv[4]));
 
-    Model model;
-    model.apply(yuv.getY());
+  Model model;
+  model.load("../resources/model.meta", "../resources/model");
+  model.apply(yuv.getY());
 
-    return 0;
+  return 0;
 }

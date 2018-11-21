@@ -33,19 +33,21 @@ typedef std::vector<std::pair<std::string, tensorflow::Tensor>> tensor_dict;
 class Model
 {
 private:
-    tensorflow::Session* session;
-    tensorflow::MetaGraphDef graphDef;
-    std::vector<tensorflow::Tensor> outputs;
+  tensorflow::Session* session;
+  tensorflow::MetaGraphDef graphDef;
+  std::vector<tensorflow::Tensor> outputs;
+
+  void cleanSession();
 
 protected:
 
 public:
-    Model();
-    ~Model();
+  Model();
+  ~Model();
 
-    void load();
+  void load(const std::string& pathToGraph, const std::string checkpointPath);
 
-    void apply(const std::vector<cv::Mat>& video);
+  void apply(const std::vector<cv::Mat>& video);
 };
 
 

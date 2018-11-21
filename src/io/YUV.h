@@ -30,23 +30,24 @@
 class YUV
 {
 private:
-    std::vector<cv::Mat> y;
-    std::vector<cv::Mat> u;
-    std::vector<cv::Mat> v;
+  std::vector<cv::Mat> y;
+  std::vector<cv::Mat> u;
+  std::vector<cv::Mat> v;
 
 protected:
 
 public:
-    YUV();
-    ~YUV();
+  YUV();
+  ~YUV();
 
-    void read(const char* filename, int width, int height, int nFrames);
+  void read(const char* filename, int width, int height, int nFrames);
 
-    void write(const char* filename, const std::vector<cv::Mat>& y, const std::vector<cv::Mat>& u, const std::vector<cv::Mat>& v);
+  void write(
+    const char* filename, const std::vector<cv::Mat>& y, const std::vector<cv::Mat>& u, const std::vector<cv::Mat>& v);
 
-    std::vector<cv::Mat> getY();
-    std::vector<cv::Mat> getU();
-    std::vector<cv::Mat> getV();
+  std::vector<cv::Mat> getY();
+  std::vector<cv::Mat> getU();
+  std::vector<cv::Mat> getV();
 };
 
 #endif
