@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2018 Maria Santamaria
  *
- * This file is part of yuv-loader.
+ * This file is part of YUVLoader.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ private:
   tensorflow::MetaGraphDef graphDef;
   std::vector<tensorflow::Tensor> outputs;
 
-  void cleanSession();
+  void clearSession();
 
 protected:
 

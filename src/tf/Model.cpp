@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2018 Maria Santamaria
  *
- * This file is part of yuv-loader.
+ * This file is part of YUVLoader.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ Model::~Model()
   clearSession();
 }
 
-void Model::cleanSession()
+void Model::clearSession()
 {
   if (session != 0)
   {
@@ -43,7 +43,7 @@ void Model::cleanSession()
 
 void Model::load(const string& pathToGraph, const string checkpointPath)
 {
-  cleanSession();
+  clearSession();
   TF_CHECK_OK(NewSession(SessionOptions(), &session));
   TF_CHECK_OK(ReadBinaryProto(Env::Default(), pathToGraph, &graphDef));
   TF_CHECK_OK(session->Create(graphDef.graph_def()));
